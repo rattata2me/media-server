@@ -3,3 +3,4 @@ logs/*
 MediaCover/*
 Sentry/*
 logs.db
+logs.*
