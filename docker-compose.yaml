@@ -1,0 +1,75 @@
+# Docker Compose for qbittorrent, prowlarr, and radarr
+version: '3.8'
+services:
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    hostname: flaresolverr
+    restart: unless-stopped
+    ports:
+      - "8191:8191"
+    environment:
+      - LOG_LEVEL=info
+    networks:
+      - mediaserver
+  qbittorrent:
+    image: ghcr.io/hotio/qbittorrent
+    container_name: qbittorrent
+    hostname: qbittorrent
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=8080/tcp,8080/udp
+      - LIBTORRENT=v1
+    volumes:
+      - ./qbittorrent/config:/config
+      - ./data_folder:/data
+      - ./data_folder:/app/qBittorrent/downloads
+    networks:
+      - mediaserver
+
+  prowlarr:
+    image: ghcr.io/hotio/prowlarr
+    container_name: prowlarr
+    hostname: prowlarr
+    restart: unless-stopped
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ./prowlarr/config:/config
+    networks:
+      - mediaserver
+
+  radarr:
+    image: ghcr.io/hotio/radarr
+    container_name: radarr
+    hostname: radarr
+    restart: unless-stopped
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ./radarr/config:/config
+      - ./data_folder:/data
+      - ./data_folder:/app/qBittorrent/downloads
+    networks:
+      - mediaserver
+# Define a custom network for inter-service communication
+networks:
+  mediaserver:
+    driver: bridge
