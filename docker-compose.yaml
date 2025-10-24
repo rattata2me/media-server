@@ -84,6 +84,25 @@ services:
       - ./data_folder:/app/qBittorrent/downloads
     networks:
       - mediaserver
+
+  sonarr:
+    image: ghcr.io/hotio/sonarr
+    container_name: sonarr
+    hostname: sonarr
+    restart: unless-stopped
+    ports:
+      - "8989:8989"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ./sonarr/config:/config
+      - ./data_folder:/data
+      - ./data_folder:/app/qBittorrent/downloads
+    networks:
+      - mediaserver
 # Define a custom network for inter-service communication
 networks:
   mediaserver:
