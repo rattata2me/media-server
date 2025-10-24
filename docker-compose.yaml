@@ -17,8 +17,8 @@ services:
       - LIBTORRENT=v1
     volumes:
       - ./qbittorrent/config:/config
-      - ./data_folder:/data
-      - ./data_folder:/app/qBittorrent/downloads
+      - ${DATA_FOLDER:-./data_folder}:/data
+      - ${DATA_FOLDER:-./data_folder}:/app/qBittorrent/downloads
     networks:
       - mediaserver
 
@@ -45,7 +45,7 @@ services:
       - "7359:7359/udp"
     volumes:
       - ./jellyfin/config:/config
-      - ./data_folder:/media
+      - ${DATA_FOLDER:-./data_folder}:/media
     networks:
       - mediaserver
 
@@ -80,8 +80,8 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ./radarr/config:/config
-      - ./data_folder:/data
-      - ./data_folder:/app/qBittorrent/downloads
+      - ${DATA_FOLDER:-./data_folder}:/data
+      - ${DATA_FOLDER:-./data_folder}:/app/qBittorrent/downloads
     networks:
       - mediaserver
 
@@ -99,8 +99,8 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ./sonarr/config:/config
-      - ./data_folder:/data
-      - ./data_folder:/app/qBittorrent/downloads
+      - ${DATA_FOLDER:-./data_folder}:/data
+      - ${DATA_FOLDER:-./data_folder}:/app/qBittorrent/downloads
     networks:
       - mediaserver
 # Define a custom network for inter-service communication
