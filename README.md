@@ -76,4 +76,9 @@ Example:
 ## License
 
 This project is provided as-is, without warranty. Use at your own risk.
-# media-server
+
+## Disclaimer
+
+This project is intended to serve as a local media server for sharing videos of legally owned content within a local network. It is designed for local or VPN-based consumption, such as exposing a DVD from your PC to a smart TV on the same network.
+
+Use only trusted and legal indexers. It is recommended to use your own indexer with torrent files from reliable sources. To set up a local indexer for use with Prowlarr, refer to [NNTmux/newznab-tmux](https://github.com/NNTmux/newznab-tmux).
